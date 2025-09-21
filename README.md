@@ -32,7 +32,6 @@ You can execute NONMEM commands directly inside this shell.
 # Step 4: Managing your NONMEM data and license
 To keep your NONMEM data and license persistent or to access local files, use volumes:
 
-
-        docker run --rm -it -v /local/path/license:/opt/nonmem/licence -v /local/path/data:/opt/nonmem/data nonmem751-image
+    docker run --rm -it -v /local/path/license:/opt/nonmem/licence -v /local/path/data:/opt/nonmem/data nonmem751-image
 
 Replace /local/path/license and /local/path/data with your local folders.

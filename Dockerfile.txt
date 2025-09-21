@@ -1,0 +1,34 @@
+# Use Ubuntu 20.04 as base image
+FROM ubuntu:20.04
+
+# Install necessary tools: unzip to extract .zip files, gfortran compiler for NONMEM
+RUN apt-get update && apt-get install -y unzip gfortran bash sudo
+
+# Make directories inside the container for installation and license
+RUN mkdir -p /opt/nonmem_install /opt/nonmem
+
+# Copy your local NONMEM zip and license file into the image
+COPY NONMEM751.zip /opt/nonmem_install/
+COPY nonmem.lic /opt/nonmem_install/
+
+# Change working directory inside the container
+WORKDIR /opt/nonmem_install
+
+# Unzip the NONMEM package using the password (adjust accordingly)
+RUN unzip -P xxxxxxxx NONMEM751.zip
+
+# Run the NONMEM setup script
+# Note: The setup script requires user interaction; here we simulate "yes" by piping 'y' multiple times
+RUN yes y | /bin/bash ./SETUP75 /opt/nonmem_install/nm751CD /opt/nonmem gfortran
+
+# Copy license file to expected NONMEM directories
+RUN cp /opt/nonmem_install/nonmem.lic /opt/nonmem \
+    && mkdir -p /opt/nonmem/licence \
+    && cp /opt/nonmem_install/nonmem.lic /opt/nonmem/licence
+
+# Set environment variables for NONMEM
+ENV NONMEM_HOME=/opt/nonmem
+ENV PATH=$NONMEM_HOME/bin:$PATH
+
+# Default command starts a bash shell so you can run NONMEM commands interactively
+CMD ["/bin/bash"]

@@ -7,9 +7,9 @@ You have installed Docker on your computer
 Create a folder (e.g., nonmem-docker) and put these inside:
 
         NONMEM751.zip (downloaded ZIP)
-        
+                
         nonmem.lic (license file)
-        
+
         A Dockerfile 
 
 # Step 2: Build the Docker Image

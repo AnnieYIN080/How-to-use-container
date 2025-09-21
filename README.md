@@ -6,15 +6,15 @@ You have installed Docker on your computer
 # Step 1: Prepare your folder structure
 Create a folder (e.g., nonmem-docker) and put these inside:
 
-NONMEM751.zip (downloaded ZIP)
-
-nonmem.lic (license file)
-
-A Dockerfile 
+        NONMEM751.zip (downloaded ZIP)
+        
+        nonmem.lic (license file)
+        
+        A Dockerfile 
 
 # Step 2: Build the Docker Image
 
-    cd path/folder
+    cd /local/path/folder
     docker build -t nonmem751-image .
 
 This reads your Dockerfile, copies files, installs software, and runs setup.
@@ -29,9 +29,10 @@ You get a bash shell inside your NONMEM environment.
 
 You can execute NONMEM commands directly inside this shell.
 
-Step 5: Managing your NONMEM data and license
+# Step 4: Managing your NONMEM data and license
 To keep your NONMEM data and license persistent or to access local files, use volumes:
 
-bash
-docker run --rm -it -v /local/path/license:/opt/nonmem/licence -v /local/path/data:/opt/nonmem/data nonmem751-image
+
+        docker run --rm -it -v /local/path/license:/opt/nonmem/licence -v /local/path/data:/opt/nonmem/data nonmem751-image
+
 Replace /local/path/license and /local/path/data with your local folders.
